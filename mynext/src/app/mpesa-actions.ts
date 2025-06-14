@@ -175,18 +175,18 @@ function formatPhoneNumber(phone) {
     // Handle different formats
     if (cleaned.startsWith('0')) {
         // Convert 0712345678 to +254712345678
-        cleaned = '+254' + cleaned.substring(1);
-    } else if (cleaned.startsWith('+254')) {
+        cleaned = '254' + cleaned.substring(1);
+    } else if (cleaned.startsWith('254')) {
         // Already in correct format
     } else if (cleaned.startsWith('7') && cleaned.length === 9) {
         // Convert 712345678 to 254712345678
-        cleaned = '+254' + cleaned;
+        cleaned = '254' + cleaned;
     } else {
         return null; // Invalid format
     }
     
     // Validate Kenyan mobile number format
-    if (cleaned.length === 12 && cleaned.startsWith('+254')) {
+    if (cleaned.length === 12 && cleaned.startsWith('254')) {
         return cleaned;
     }
     

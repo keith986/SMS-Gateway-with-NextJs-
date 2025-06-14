@@ -10,8 +10,8 @@ import handleMpesaSubmit from "../mpesa-actions.ts"
 
 export default function AddUsers () {
    const { sessionId } = useAuth()
-   const [mstate, mAction, mPending] = useActionState(handleMpesaSubmit, { success: false })
-   
+   const [mstate, mAction, mPending] = useActionState(handleMpesaSubmit, {success: false})
+
    const handleToggleMpesa = () => {
     document.getElementById("pwc").classList.add('hidden')
     const toggles = document.getElementById("pwm");
@@ -131,11 +131,11 @@ export default function AddUsers () {
 
 <div className="flex items-center justify-center mb-4 rounded-sm bg-gray-50 dark:bg-gray-800">
 <div className="w-full relative overflow-x-auto p-2 sm:rounded-lg">
- 
-
 <section className="hidden bg-white py-8 antialiased dark:bg-gray-900 md:py-16" id="pwm">
   <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <div className="mx-auto max-w-5xl">
+       { mstate.success && <p className="flex justify-center text-green-200 dark:text-green-700">Prompt sent successfully</p> }
+       { mstate.error && <p className="text-red-500 flex justify-center">{mstate.error}</p> }
       <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:justify-center lg:gap-12">
         <form action={mAction} className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
           <div className="mb-6 grid grid-cols gap-4">
