@@ -25,7 +25,7 @@ export default async function handleMpesaSubmit(prevState, formData: FormData) {
         const consumer_secret = process.env.MPESA_CONSUMER_SECRET || "kcpXInRu6W0fZkfiw6p0Ps3JHhgLv0pB4AY8Wso4g5JrD8ODQlA4ABYcDJN8YiU4";
         const passkey = process.env.MPESA_PASS_KEY || "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
         const shortcode = process.env.MPESA_SHORTCODE || "174379";
-        const callback_url = process.env.MPESA_CALLBACK_URL || "https://599e-105-29-165-165.ngrok-free.app/api/callback";
+        const callback_url = process.env.MPESA_CALLBACK_URL || "https://e096-105-29-165-165.ngrok-free.app/api/callback";
 
         // STEP 1: GET ACCESS TOKEN
         const accessToken = await getAccessToken(consumer_key, consumer_secret);
