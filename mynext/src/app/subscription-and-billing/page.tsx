@@ -4,13 +4,13 @@ import {useActionState} from "react";
 //import { collection, addDoc } from "firebase/firestore";
 //import { Loader2 } from "lucide-react"
 //import { db } from "../firebase.tsx";
-//import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { SignOutButton, useAuth } from '@clerk/nextjs';
 import handleMpesaSubmit from "../mpesa-actions.ts"
 
 export default function AddUsers () {
    const { sessionId } = useAuth()
-   const [mstate, mAction, mPending] = useActionState(handleMpesaSubmit, null)
+   const [mstate, mAction, mPending] = useActionState(handleMpesaSubmit, { success: false })
    
    const handleToggleMpesa = () => {
     document.getElementById("pwc").classList.add('hidden')
@@ -27,7 +27,6 @@ export default function AddUsers () {
       toggles.classList.toggle('hidden');
     }
    }
-   
 
     return (
 <>
@@ -132,13 +131,11 @@ export default function AddUsers () {
 
 <div className="flex items-center justify-center mb-4 rounded-sm bg-gray-50 dark:bg-gray-800">
 <div className="w-full relative overflow-x-auto p-2 sm:rounded-lg">
+ 
 
 <section className="hidden bg-white py-8 antialiased dark:bg-gray-900 md:py-16" id="pwm">
   <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <div className="mx-auto max-w-5xl">
-      {mPending ? "" : 
-       <p className="text-white-50 dark:text-white-700">{mstate}</p>
-      }
       <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:justify-center lg:gap-12">
         <form action={mAction} className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
           <div className="mb-6 grid grid-cols gap-4">
@@ -149,7 +146,7 @@ export default function AddUsers () {
               <input type="number" id="phonenumber" name="phonenumber" aria-describedby="helper-text-explanation" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="07********" required />
             </div>
           </div>
-          <button type="submit" disabled={mPending ? "disabled" : ""} className="cursor-pointer flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">{mPending ? "Please wait" :"Pay now"}</button>
+          <button type="submit"  className="cursor-pointer flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">{mPending ? "Please wait" :"Pay now"}</button>
         </form>
       </div>
     </div>
