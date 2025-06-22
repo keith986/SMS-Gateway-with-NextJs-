@@ -1,8 +1,7 @@
 "use server"
 import Axios from "axios"
 import { Buffer } from 'node:buffer';
-import { promises as fs } from 'fs'
-import path from 'path';
+
 
 export default async function handleMpesaSubmit(prevState, formData: FormData) {
     try {
@@ -27,7 +26,7 @@ export default async function handleMpesaSubmit(prevState, formData: FormData) {
         const consumer_secret = process.env.MPESA_CONSUMER_SECRET || "kcpXInRu6W0fZkfiw6p0Ps3JHhgLv0pB4AY8Wso4g5JrD8ODQlA4ABYcDJN8YiU4";
         const passkey = process.env.MPESA_PASS_KEY || "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
         const shortcode = process.env.MPESA_SHORTCODE || "174379";
-        const callback_url = process.env.MPESA_CALLBACK_URL || "https://e096-105-29-165-165.ngrok-free.app/api/callback";
+        const callback_url = process.env.MPESA_CALLBACK_URL || "https://c499-41-90-177-235.ngrok-free.app/api/callback";
 
         // STEP 1: GET ACCESS TOKEN
         const accessToken = await getAccessToken(consumer_key, consumer_secret);
@@ -69,6 +68,7 @@ export default async function handleMpesaSubmit(prevState, formData: FormData) {
         };
     }
 }
+
 
 // Helper function to get access token
 async function getAccessToken(consumer_key, consumer_secret) {
@@ -131,7 +131,6 @@ async function initiateSTKPush({
         });
 
         console.log("STK Push Response:", response.data); 
-        await fs.writeFile("../lib/stkcallback.json", JSON.stringify(response, null, 2), 'utf8'); 
 
         //check if response indicate success
         if (response.data.ResponseCode === "0") {
@@ -156,6 +155,8 @@ async function initiateSTKPush({
         };
     }
 }
+
+
 
 // Helper function to generate timestamp
 function generateTimestamp() {
