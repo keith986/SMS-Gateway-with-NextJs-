@@ -1,6 +1,8 @@
 "use server"
 import Axios from "axios"
 import { Buffer } from 'node:buffer';
+import { promises as fs } from 'fs'
+import path from 'path';
 
 export default async function handleMpesaSubmit(prevState, formData: FormData) {
     try {
@@ -41,14 +43,14 @@ export default async function handleMpesaSubmit(prevState, formData: FormData) {
             phone_number: formattedPhone,
             amount: "1", // Consider making this dynamic
             callback_url,
-            account_reference: "myTest",
+            account_reference: "SMS Test Payment",
             transaction_desc: "SMS Test Payment"
         });
 
         if (stkResult.success) {
             return { 
                 success: true, 
-                message: "STK push sent successfully",
+                message: "Request is successful done ✔✔. Please enter your mpesa pin to complete the transaction",
                 checkout_request_id: stkResult.CheckoutRequestID,
                 merchant_request_id: stkResult.MerchantRequestID
             };
@@ -128,11 +130,14 @@ async function initiateSTKPush({
             timeout: 30000 // 30 second timeout
         });
 
-        console.log("STK Push Response:", response.data);
-        
+        console.log("STK Push Response:", response.data); 
+        await fs.writeFile("../lib/stkcallback.json", JSON.stringify(response, null, 2), 'utf8'); 
+
+        //check if response indicate success
         if (response.data.ResponseCode === "0") {
             return {
                 success: true,
+                message: "Payment made successfully",
                 CheckoutRequestID: response.data.CheckoutRequestID,
                 MerchantRequestID: response.data.MerchantRequestID
             };

@@ -13,21 +13,13 @@ export default function AddUsers () {
    const { sessionId } = useAuth()
    const [mstate, mAction, mPending] = useActionState(handleMpesaSubmit, {success: false})
 
-   const handleToggleMpesa = () => {
-    document.getElementById("pwc").classList.add('hidden')
-    const toggles = document.getElementById("pwm");
-    if(toggles){
-      toggles.classList.toggle('hidden');
-    }
+   /*
+   const handlePhoneNumber = (ev) => {
+    const namba = ev.target.value;
+    const formattedNumber = namba.match(/\d{3}/g);
+    document.getElementById("phonenumbers").value = formattedNumber ? formattedNumber.join("") : "";
    }
-
-   const handleToggleVisaCard = () => {
-    document.getElementById("pwm").classList.add('hidden')
-    const toggles = document.getElementById("pwc");
-    if(toggles){
-      toggles.classList.toggle('hidden');
-    }
-   }
+   */
 
     return (
 <>
@@ -106,108 +98,78 @@ export default function AddUsers () {
         </a>
          <a href="#" className="flex items-center justify-center h-24 rounded-sm bg-white-50 dark:bg-white-800">
             <div className="flex items-center justify-center flex-col">
-                <p className="text-4xl text-white-400 dark:text-gray font-bold" style={{fontFamily: 'Cash Currency'}}>Kes. 0.00</p>
+                <p className="text-4xl text-white-400 dark:text-gray font-bold" style={{fontFamily: 'Cash Currency'}}>Kes. 300.00</p>
                 <span>Your balance</span>
             </div>
          </a>         
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-4">
-         <a href="#" className="cursor-pointer flex items-center justify-center h-24 rounded-sm bg-green-50 dark:bg-green-800 hover:bg-green-100 dark:hover:bg-green-700" onClick={handleToggleMpesa}>
-            <div className="flex items-center justify-center flex-col text-2xl text-gray-400 dark:text-gray-500">
-               <p className="text-2xl text-white-400 dark:text-white">Pay with Mpesa</p>
-            </div>
-         </a>
-         <a href="#" className="cursor-default flex items-center justify-center h-24 rounded-sm bg-transparent">
-            <p className="flex items-center justify-center flex-col text-2xl text-gray-400 dark:text-gray-500">
-              or
-            </p>
-         </a>
-         <a href="#" className="cursor-pointer flex items-center justify-center h-24 rounded-sm bg-yellow-500 dark:bg-yellow-800 hover:bg-yellow-100 dark:hover:bg-yellow-700" onClick={handleToggleVisaCard}>
-            <div className="flex items-center justify-center flex-col text-2xl text-gray-400 dark:text-gray-500">
-                <p className="text-2xl text-white-400 dark:text-white">Pay with Credit Visa Card</p>
-            </div>
-         </a>
-      </div>
-
 <div className="flex items-center justify-center mb-4 rounded-sm bg-gray-50 dark:bg-gray-800">
 <div className="w-full relative overflow-x-auto p-2 sm:rounded-lg">
-<section className="hidden bg-white py-8 antialiased dark:bg-gray-900 md:py-16" id="pwm">
+<section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16 rounded-lg" id="pwm">
+   <h1 className="mb-2 flex items-center text-4xl gap-1 font-medium text-gray-900 dark:text-white justify-center">Make payments</h1>
   <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <div className="mx-auto max-w-5xl">
-       { mstate.success && <p className="flex justify-center text-green-200 dark:text-green-700">Prompt sent successfully</p> }
+       { mstate.success && <p className="flex justify-center text-green-200 dark:text-green-700">{mstate.message}</p> }
        { mstate.error && <p className="text-red-500 flex justify-center">{mstate.error}</p> }
       <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:justify-center lg:gap-12">
         <form action={mAction} className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
           <div className="mb-6 grid grid-cols gap-4">
             <div>
-              <label className="mb-2 flex items-center text-sm gap-1 font-medium text-gray-900 dark:text-white">
-                Enter your phone number
-              </label>
-              <input type="number" id="phonenumber" name="phonenumber" aria-describedby="helper-text-explanation" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="07********" required />
+              <label className="mb-2 flex items-center text-sm gap-1 font-medium text-gray-900 dark:text-white">Enter your phone number</label>
+              <input type="number" id="phonenumber" name="phonenumber"  aria-describedby="helper-text-explanation" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="2547********" required />
             </div>
           </div>
-          <button type="submit"  className="cursor-pointer flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">{mPending ? "Please wait" :"Pay now"}</button>
+          <button type="submit"  className="cursor-pointer flex w-full items-center justify-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{mPending ? "Please wait" :"Mpesa Payment"}</button>
         </form>
       </div>
     </div>
   </div>
 </section>
 
-<section className="hidden bg-white py-8 antialiased dark:bg-gray-900 md:py-16" id="pwc">
-  <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-    <div className="mx-auto max-w-5xl">
-      <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:justify-center lg:gap-12">
-        <form action="#" className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
-          <div className="mb-6 grid grid-cols-2 gap-4">
-            <div className="col-span-2 sm:col-span-1">
-              <label  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Full name (as displayed on card)* </label>
-              <input type="text" id="full_name" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Bonnie Green" required />
-            </div>
-
-            <div className="col-span-2 sm:col-span-1">
-              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Card number* </label>
-              <input type="text" id="card-number-input" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="xxxx-xxxx-xxxx-xxxx" pattern="^4[0-9]{12}(?:[0-9]{3})?$" required />
-            </div>
-
-            <div>
-              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Card expiration* </label>
-              <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-                  <svg className="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                      fillRule="evenodd"
-                      d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <input datepickerformat="mm/yy" id="card-expiration-input" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-9 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="12/23" required />
-              </div>
-            </div>
-            <div>
-              <label className="mb-2 flex items-center gap-1 text-sm font-medium text-gray-900 dark:text-white">
-                CVV*
-                <button data-tooltip-target="cvv-desc" data-tooltip-trigger="hover" className="text-gray-400 hover:text-gray-900 dark:text-gray-500 dark:hover:text-white">
-                  <svg className="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clipRule="evenodd" />
-                  </svg>
-                </button>
-                <div id="cvv-desc" role="tooltip" className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700">
-                  The last 3 digits on back of card
-                  <div className="tooltip-arrow" data-popper-arrow></div>
-                </div>
-              </label>
-              <input type="number" id="cvv-input" aria-describedby="helper-text-explanation" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="•••" required />
-            </div>
-          </div>
-
-          <button type="submit" className="cursor-pointer flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">Pay now</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+<div>
+   <h1 className="mb-2 flex items-center text-xl gap-1 font-medium text-gray-900 dark:text-white justify-center mt-2"> ~ Transactional History ~</h1>
+<table className="relative w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-2">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" className="px-6 py-3">
+                    MpesaReceiptNumber
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    TransactionDate
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    from (PhoneNumber)
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Amount
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    status
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    .....
+                </th>
+                <td className="px-6 py-4">
+                    .....
+                </td>
+                <td className="px-6 py-4">
+                    .....
+                </td>
+                <td className="px-6 py-4">
+                    .....
+                </td>
+                <td className="px-6 py-4">
+                    .....
+                </td>
+                </tr>
+        </tbody>
+    </table>
+</div>
 
 </div>
 </div>
