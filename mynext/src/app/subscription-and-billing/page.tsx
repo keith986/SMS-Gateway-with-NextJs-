@@ -6,7 +6,7 @@ import {useActionState} from "react";
 //import { db } from "../firebase.tsx";
 //import { toast } from 'react-toastify';
 import { SignOutButton, useAuth } from '@clerk/nextjs';  
-import handleMpesaSubmit from "../mpesa-actions.ts"
+import handleMpesaSubmit from "../actions/mpesa-actions.ts"
 
 
 export default function AddUsers () {

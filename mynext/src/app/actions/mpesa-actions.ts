@@ -1,7 +1,7 @@
 "use server"
 import Axios from "axios"
-import { Buffer } from 'node:buffer';
-
+import { Buffer } from 'node:buffer'
+//import "../api/mpesa/callback/route.tsx"
 
 export default async function handleMpesaSubmit(prevState, formData: FormData) {
     try {
@@ -10,11 +10,11 @@ export default async function handleMpesaSubmit(prevState, formData: FormData) {
         
         const phone_number = formData.get("phonenumber");
         
-        // Validate phone number
+        // Validate phone number  
         if (!phone_number || typeof phone_number !== 'string') {
             return { success: false, error: "Phone number is required" };
-        }
-        
+        }    
+         
         // Format phone number (ensure it starts with 254)
         const formattedPhone = formatPhoneNumber(phone_number);
         if (!formattedPhone) {
@@ -26,18 +26,17 @@ export default async function handleMpesaSubmit(prevState, formData: FormData) {
         const consumer_secret = process.env.MPESA_CONSUMER_SECRET || "kcpXInRu6W0fZkfiw6p0Ps3JHhgLv0pB4AY8Wso4g5JrD8ODQlA4ABYcDJN8YiU4";
         const passkey = process.env.MPESA_PASS_KEY || "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
         const shortcode = process.env.MPESA_SHORTCODE || "174379";
-        const callback_url = process.env.MPESA_CALLBACK_URL || "https://c499-41-90-177-235.ngrok-free.app/api/callback";
+        const callback_url = process.env.MPESA_CALLBACK_URL || "https://5bef-105-29-165-165.ngrok-free.app/api/mpesa/callback";
 
         // STEP 1: GET ACCESS TOKEN
         const accessToken = await getAccessToken(consumer_key, consumer_secret);
         if (!accessToken) {
             return { success: false, error: "Failed to get access token" };
         }
-
         // STEP 2: INITIATE STK PUSH
         const stkResult = await initiateSTKPush({
             accessToken,
-            shortcode,
+            shortcode, 
             passkey,
             phone_number: formattedPhone,
             amount: "1", // Consider making this dynamic
@@ -67,11 +66,12 @@ export default async function handleMpesaSubmit(prevState, formData: FormData) {
             error: "An unexpected error occurred. Please try again." 
         };
     }
+
 }
 
 
 // Helper function to get access token
-async function getAccessToken(consumer_key, consumer_secret) {
+async function getAccessToken(consumer_key, consumer_secret){
     try {
         const url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
         const auth = "Basic " + Buffer.from(consumer_key + ":" + consumer_secret).toString("base64");
@@ -131,6 +131,7 @@ async function initiateSTKPush({
         });
 
         console.log("STK Push Response:", response.data); 
+        
 
         //check if response indicate success
         if (response.data.ResponseCode === "0") {
@@ -147,6 +148,7 @@ async function initiateSTKPush({
             };
         }
 
+
     } catch (error) {
         console.error("STK Push Error:", error.response?.data || error.message);
         return {
@@ -155,8 +157,6 @@ async function initiateSTKPush({
         };
     }
 }
-
-
 
 // Helper function to generate timestamp
 function generateTimestamp() {
