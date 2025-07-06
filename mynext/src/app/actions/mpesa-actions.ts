@@ -1,7 +1,6 @@
 "use server"
 import Axios from "axios"
 import { Buffer } from 'node:buffer'
-//import "../api/mpesa/callback/route.tsx"
 
 export default async function handleMpesaSubmit(prevState, formData: FormData) {
     try {
@@ -22,11 +21,11 @@ export default async function handleMpesaSubmit(prevState, formData: FormData) {
         }
 
         // Environment variables for security
-        const consumer_key = process.env.MPESA_CONSUMER_KEY || "YS5qZyYGGp4DA5KOlX5tnZbve3KTDKEkaplKmpxkpy0WFSKE";
-        const consumer_secret = process.env.MPESA_CONSUMER_SECRET || "kcpXInRu6W0fZkfiw6p0Ps3JHhgLv0pB4AY8Wso4g5JrD8ODQlA4ABYcDJN8YiU4";
+        const consumer_key = process.env.MPESA_CONSUMER_KEY || "GzHc4d76tGcqGYZ7EC9cpsegSEJvBqJPB5CKAn9GIcfVGhv9";
+        const consumer_secret = process.env.MPESA_CONSUMER_SECRET || "fA6skzHeqDmjKEuOTGMEIYPCxrN8zOTnkKvOA3JuhzJ9rXyGCCyF0ZENI5EkNEAL";
         const passkey = process.env.MPESA_PASS_KEY || "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
         const shortcode = process.env.MPESA_SHORTCODE || "174379";
-        const callback_url = process.env.MPESA_CALLBACK_URL || "https://5bef-105-29-165-165.ngrok-free.app/api/mpesa/callback";
+        const callback_url = process.env.MPESA_CALLBACK_URL || "https://9de8-41-90-178-218.ngrok-free.app/api/mpesa/callback";
 
         // STEP 1: GET ACCESS TOKEN
         const accessToken = await getAccessToken(consumer_key, consumer_secret);

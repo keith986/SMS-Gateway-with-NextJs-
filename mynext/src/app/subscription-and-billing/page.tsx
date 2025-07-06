@@ -98,7 +98,7 @@ export default function AddUsers () {
         </a>
          <a href="#" className="flex items-center justify-center h-24 rounded-sm bg-white-50 dark:bg-white-800">
             <div className="flex items-center justify-center flex-col">
-                <p className="text-4xl text-white-400 dark:text-gray font-bold" style={{fontFamily: 'Cash Currency'}}>Kes. 300.00</p>
+                <p className="text-4xl text-white-400 dark:text-gray font-bold" style={{fontFamily: 'Cash Currency'}}>Kes. 0.00</p>
                 <span>Your balance</span>
             </div>
          </a>         
